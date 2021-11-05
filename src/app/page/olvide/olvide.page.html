@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Recuperar</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<body>
+
+
+    <ion-content>
+        <ion-card class="card">
+            <ion-card-header class=olv>
+                <ion-label>¿Olvidaste tu contraseña? No te preocupes, solo pon tu correo acá</ion-label>
+            </ion-card-header>
+            <ion-card-content class="sesion">
+                <form [formGroup]="formularioLogin">
+                    <ion-item>
+                        <ion-label position="floating">Correo</ion-label>
+                        <ion-input formControlName="email" autocomplete="off" type="email" [(ngModel)]="email"></ion-input>
+                    </ion-item>
+                </form>
+
+
+
+                <div class="ion-padding">
+                    <ion-button expand="block" (click)="recuperar()">Recuperar</ion-button>
+                </div>
+
+            </ion-card-content>
+
+        </ion-card>
+    </ion-content>
+</body>

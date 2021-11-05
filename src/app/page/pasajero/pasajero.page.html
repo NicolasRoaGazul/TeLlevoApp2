@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Mi Perfil</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-router-outlet>
+        <ion-card>
+
+            <ion-card-content>
+                <ion-label class="titulo">Perfil de {{usuario.nombre}}</ion-label>
+
+            </ion-card-content>
+            <ion-card-content class="foto">
+                <img src="assets/img/download.png">
+            </ion-card-content>
+
+        </ion-card>
+        <ion-card>
+            <ion-card-content class="normal">
+                <ion-item>
+                    <ion-label>Nombre: {{usuario.nombre}}</ion-label>
+                </ion-item>
+                <!--
+                <ion-item>
+                    <ion-label>Dirección:</ion-label>
+                </ion-item>
+                <ion-buttons fill="clear" color="primary">
+                    <ion-button [routerLink]="['/olvide']">
+                        +Cambiar Dirección
+                    </ion-button>
+                </ion-buttons>-->
+                <ion-item>
+                    <ion-label>Correo: {{usuario.email}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Viajes totales:</ion-label>
+                </ion-item>
+
+
+
+            </ion-card-content>
+        </ion-card>
+    </ion-router-outlet>
+</ion-content>

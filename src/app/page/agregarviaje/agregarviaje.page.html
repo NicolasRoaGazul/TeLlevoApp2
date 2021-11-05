@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Viajes
+
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+    <ion-card>
+        <ion-card-header>
+            <ion-title class="titulo">Conductores disponibles</ion-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-select placeholder="Seleccione Conductor" [(ngModel)]="user">
+                <ion-select-option *ngFor="let usu of users" [value]="usu">{{usu.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-card>
+    <br>
+    <ion-card>
+        <ion-card-header>
+            <ion-title>Direcciones</ion-title>
+        </ion-card-header>
+        <ion-item class="ion-padding-horizontal">
+            <ion-label position="floating">¿Donde estoy?</ion-label>
+            <ion-input [(ngModel)]="post.title"></ion-input>
+        </ion-item>
+        <ion-item class="ion-padding-horizontal">
+            <ion-label position="floating">¿Donde voy?</ion-label>
+            <ion-textarea [(ngModel)]="post.body"></ion-textarea>
+        </ion-item>
+        <ion-grid>
+            <ion-row>
+
+                <ion-col>
+                    <ion-button shape="round" expand="block" (click)="guardarPost()">Comenzar viaje</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+    <ion-card>
+        <ion-list-header>
+            <ion-title>Historial de viajes</ion-title>
+        </ion-list-header>
+        <ion-list>
+            <ion-item *ngFor="let post of posts">
+                <ion-label (click)="setPost(post)">
+                    <h4>{{post.title}}</h4>
+                    <p>{{post.body}}</p>
+
+                </ion-label>
+                <ion-button (click)="eliminarPost(post)">
+                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-item>
+        </ion-list>
+
+    </ion-card>
+
+
+    <div id="map"></div>
+</ion-content>
+
+
+
+
+<div id="map"></div>

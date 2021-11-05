@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>bienvenida</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+    <ion-card class="bien">
+
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-label>
+                    Bienvenido {{usuario.nombre}} <br>¿Cómo quieres ingresar?
+                </ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <div class="perfil">
+        <ion-button shape="deffault" mat-button color="primary" (click)="perfil()">Conductor</ion-button>
+    </div>
+    <div class="pasa">
+        <ion-button shape="deffault" mat-button color="primary" (click)="pasa()">Pasajero</ion-button>
+    </div>
+</ion-content>

@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { ServicioService } from 'src/app/services/servicio.service';
 import { MapboxServiceService, Feature } from 'src/app/services/mapbox-service.service';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 
 declare var google;
 interface Marker {
@@ -74,11 +75,17 @@ export class AgregarviajePage implements OnInit {
     //this.addMarker(marker);
   ];
   */
-  constructor(private mapboxService: MapboxServiceService,private api: ServicioService, public toastController:ToastController){}
+  constructor(public geolocation: Geolocation,private mapboxService: MapboxServiceService,private api: ServicioService, public toastController:ToastController){}
 
+  ngAfterViewInit() {
+    this.geolocationNative();
+  }
 
-
-
+  geolocationNative() {
+    this.geolocation.getCurrentPosition().then((geposition: Geoposition) =>{
+      console.log(this.geolocation);
+    })
+  }
 
 
   ionViewWillEnter(){

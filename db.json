@@ -116,12 +116,5 @@
       }
     }
   ],
-  "posts": [
-    {
-      "id": 1,
-      "title": "sdfdsf",
-      "body": "sdfsdf",
-      "userId": 1
-    }
-  ]
+  "posts": []
 }

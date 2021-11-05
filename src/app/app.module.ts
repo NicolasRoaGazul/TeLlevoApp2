@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
 import {HttpClientModule} from '@angular/common/http';
-//import { Geolocation } from '@ionic-native/geolocation';
+
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,IonicStorageModule.forRoot(), HttpClientModule],
 
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },Geolocation],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

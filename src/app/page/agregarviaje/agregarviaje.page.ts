@@ -4,6 +4,7 @@ import { MapOperator } from 'rxjs/internal/operators/map';
 import { ServicioService } from 'src/app/services/servicio.service';
 import { MapboxServiceService, Feature } from 'src/app/services/mapbox-service.service';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
+import { Router } from '@angular/router';
 
 declare var google;
 interface Marker {
@@ -22,11 +23,13 @@ export class AgregarviajePage implements OnInit {
 
   user:any;
   users:any;
+  costo:number;
   posts:any;
   post:any={
     id:null,
-    title:"",
+    title:null,
     body:"",
+    costo:"",
     userId:null,
   };
   compareWith:any;
@@ -75,7 +78,9 @@ export class AgregarviajePage implements OnInit {
     //this.addMarker(marker);
   ];
   */
-  constructor(public geolocation: Geolocation,private mapboxService: MapboxServiceService,private api: ServicioService, public toastController:ToastController){}
+  constructor(private router: Router,public geolocation: Geolocation,private mapboxService: MapboxServiceService,private api: ServicioService, public toastController:ToastController){
+
+  }
 
   ngAfterViewInit() {
     this.geolocationNative();
@@ -91,9 +96,15 @@ export class AgregarviajePage implements OnInit {
   ionViewWillEnter(){
     this.getUsuarios();
     this.getPosts();
+    this.getCosto();
   
 
     
+  }
+  getCosto() {
+    this.api.getCosto().subscribe((data)=>{
+      this.users=data;
+    })
   }
   getPosts() {
     this.api.getPosts().subscribe((data) =>{
@@ -106,8 +117,9 @@ export class AgregarviajePage implements OnInit {
       this.users=data;
     })
   }
-  guardarPost(){
-    if (this.post.userId==null) {
+
+  guardarPost() {
+    /* if (this.post.userId==null) {
       if (this.user==undefined) {
         this.presentToast("Debe seleccionar un conductor")
         return;
@@ -133,8 +145,51 @@ export class AgregarviajePage implements OnInit {
         }
       )
 
+    } */
+    //filtros
+    //combobox conductor
+    if (!this.post.userId) {
+      if (!this.user) {
+        this.presentToast('Debe seleccionar un conductor');
+        return;
+      }
     }
-  }
+    //origen
+    if (!this.post.title) {
+      this.presentToast('Debe especificar un origen para su viaje');
+      return;
+    }
+    //destino
+    if (!this.post.body) {
+      this.presentToast('Debe especificar un destino para su viaje');
+      return;
+    }
+    //costo
+    if (!this.post.costo) {
+      this.presentToast('Debe especificar una tarifa para su viaje');
+      return;
+    }
+    
+    if (this.post.costo > 2000){
+      this.presentToast('Ta tarifa de viaje no debe ser mayor a 2000 pesos');
+      return;
+    }
+    //proceso
+
+
+      this.post.userId = this.user.id;
+      this.api.createPost(this.post).subscribe(
+        () => {
+          this.presentToast('Viaje creado con éxito');
+          this.getPosts();
+        },
+        (error) => {
+          this.presentToast('Error - ' + error);
+          return;
+        }
+      );
+      }
+ 
 
   setPost(post){
     this.post=post;

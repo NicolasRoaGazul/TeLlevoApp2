@@ -9,6 +9,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 export class BienvenidaPage implements OnInit {
   name: string;
   usuario: string;
+
   constructor(private activeRoute: ActivatedRoute, private router: Router) { 
     this.activeRoute.queryParams.subscribe(params=>{
       if(this.router.getCurrentNavigation().extras.state){

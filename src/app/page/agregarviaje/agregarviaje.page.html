@@ -7,10 +7,12 @@
 
         </ion-title>
     </ion-toolbar>
+
 </ion-header>
 
 
 <ion-content [fullscreen]="true">
+
     <ion-card>
         <ion-card-header>
             <ion-title class="titulo">Conductores disponibles</ion-title>
@@ -34,6 +36,10 @@
             <ion-label position="floating">¿Donde voy?</ion-label>
             <ion-textarea [(ngModel)]="post.body"></ion-textarea>
         </ion-item>
+        <ion-item class="ion-padding-horizontal">
+            <ion-label position="floating">Precio Viaje</ion-label>
+            <ion-textarea [(ngModel)]="post.costo"></ion-textarea>
+        </ion-item>
         <ion-grid>
             <ion-row>
 
@@ -50,8 +56,9 @@
         <ion-list>
             <ion-item *ngFor="let post of posts">
                 <ion-label (click)="setPost(post)">
-                    <h4>{{post.title}}</h4>
-                    <p>{{post.body}}</p>
+                    <h4>Estoy en: {{post.title}}</h4>
+                    <h4>Voy a: {{post.body}}</h4>
+                    <h4>Costo del viaje: {{post.costo}}</h4>
 
                 </ion-label>
                 <ion-button (click)="eliminarPost(post)">
@@ -65,8 +72,3 @@
 
     <div id="map"></div>
 </ion-content>
-
-
-
-
-<div id="map"></div>

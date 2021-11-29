@@ -14,8 +14,8 @@ export class ServicioService {
     }
     apiURL = 'http://192.168.1.2:3000';
    //192.168.1.4:3000 jsonplaceholder.typicode.com
-    //json-server -H 192.168.1.4 .\db.json
     //json-server -H 192.168.1.2 .\db.json
+    //json-server -H 172.20.10.6 .\db.json
     constructor(private http:HttpClient) { }
 
     getUsuario(userId): Observable<any>{
@@ -28,6 +28,13 @@ export class ServicioService {
         retry(3)
       );
     }
+
+    getCosto(): Observable<any>{
+      return this.http.get(this.apiURL). pipe(
+        retry(3)
+      );
+    }
+
 
     getPosts():Observable<any>{
       return this.http.get(this.apiURL+'/posts/').pipe(

@@ -3,27 +3,46 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Viajes
-
-        </ion-title>
+        <ion-title>Viajes</ion-title>
     </ion-toolbar>
-
 </ion-header>
 
-
-<ion-content [fullscreen]="true">
-
-    <ion-card>
+<ion-content>
+    <ion-card class="login">
         <ion-card-header>
-            <ion-title class="titulo">Conductores disponibles</ion-title>
+            <ion-card-title>Direcciones</ion-card-title>
         </ion-card-header>
-        <ion-item>
-            <ion-select placeholder="Seleccione Conductor" [(ngModel)]="user">
-                <ion-select-option *ngFor="let usu of users" [value]="usu">{{usu.name}}</ion-select-option>
-            </ion-select>
-        </ion-item>
+        <ion-card-content>
+            <form [formGroup]="formularioViaje">
+                <ion-item class="ion-padding-horizontal">
+                    <ion-label position="floating">¿Donde voy?</ion-label>
+                    <ion-input formControlName="voy" autocomplete="off"></ion-input>
+                </ion-item>
+                <ion-item class="ion-padding-horizontal">
+                    <ion-label position="floating">Precio</ion-label>
+                    <ion-input formControlName="precio" autocomplete="off"></ion-input>
+                </ion-item>
+            </form>
+
+            <br>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-button shape="round" expand="block" (click)="guardarPost()">Comenzar viaje</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+
     </ion-card>
-    <br>
+
+
+    <div id="map"></div>
+</ion-content>
+
+
+
+<!-- 
     <ion-card>
         <ion-card-header>
             <ion-title>Direcciones</ion-title>
@@ -67,8 +86,4 @@
             </ion-item>
         </ion-list>
 
-    </ion-card>
-
-
-    <div id="map"></div>
-</ion-content>
+    </ion-card> -->

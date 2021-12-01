@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { ServicioService } from 'src/app/services/servicio.service';
 import { MapboxServiceService, Feature } from 'src/app/services/mapbox-service.service';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
+import {   FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder } from '@angular/forms';
 
 declare var google;
 interface Marker {
@@ -20,21 +24,12 @@ interface Marker {
   styleUrls: ['./agregarviaje.page.scss'],
 })
 export class AgregarviajePage implements OnInit {
+  formularioViaje: FormGroup;
+  viaje: string;
 
-  user:any;
-  users:any;
-  costo:number;
-  posts:any;
-  post:any={
-    id:null,
-    title:null,
-    body:"",
-    costo:"",
-    userId:null,
-  };
-  compareWith:any;
+
   
-
+  //npm install ionic-angular@latest --save (actualizar angular)
   map = null;
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -43,6 +38,7 @@ export class AgregarviajePage implements OnInit {
   // hospital -33.029013567694825, -71.53903872506535
   // Mall marina -33.008778278312136, -71.54823003739084
   destination = { lat: -33.008778278312136, lng:-71.54823003739084 };
+
 
   /*
   markers: Marker[] = [
@@ -78,7 +74,15 @@ export class AgregarviajePage implements OnInit {
     //this.addMarker(marker);
   ];
   */
-  constructor(private router: Router,public geolocation: Geolocation,private mapboxService: MapboxServiceService,private api: ServicioService, public toastController:ToastController){
+  constructor(public alertController: AlertController,public navCtrl: NavController,
+    public fb: FormBuilder,private router: Router,public geolocation: Geolocation,
+    private api: ServicioService, 
+    public toastController:ToastController){
+
+    this.formularioViaje = this.fb.group({
+      'voy': new FormControl("",Validators.required),
+      'precio': new FormControl("",Validators.required)
+    })
 
   }
 
@@ -93,7 +97,7 @@ export class AgregarviajePage implements OnInit {
   }
 
 
-  ionViewWillEnter(){
+ /*  ionViewWillEnter(){
     this.getUsuarios();
     this.getPosts();
     this.getCosto();
@@ -119,35 +123,7 @@ export class AgregarviajePage implements OnInit {
   }
 
   guardarPost() {
-    /* if (this.post.userId==null) {
-      if (this.user==undefined) {
-        this.presentToast("Debe seleccionar un conductor")
-        return;
-      }
-      this.post.userId=this.user.id;
-      this.api.createPost(this.post).subscribe(
-        ()=>{
-          this.presentToast("Viaje creado con éxito");
-          this.getPosts();
-        },
-        error=>{
-          this.presentToast("Error - "+error)
-        }
-      );
-    } else{
-      this.api.updatePost(this.post.id, this.post).subscribe(
-        ()=>{
-          this.presentToast("Viaje actualizado con éxito");
-          this.getPosts();
-        },
-        error=>{
-          this.presentToast("Error - "+error)
-        }
-      )
 
-    } */
-    //filtros
-    //combobox conductor
     if (!this.post.userId) {
       if (!this.user) {
         this.presentToast('Debe seleccionar un conductor');
@@ -171,11 +147,9 @@ export class AgregarviajePage implements OnInit {
     }
     
     if (this.post.costo > 2000){
-      this.presentToast('Ta tarifa de viaje no debe ser mayor a 2000 pesos');
+      this.presentToast('Tu tarifa de viaje no debe ser mayor a 2000 pesos');
       return;
     }
-    //proceso
-
 
       this.post.userId = this.user.id;
       this.api.createPost(this.post).subscribe(
@@ -225,11 +199,42 @@ export class AgregarviajePage implements OnInit {
     });
     toast.present();
   }
-  
+   */
 
 
   ngOnInit() {
+    this.viaje=JSON.parse(localStorage.getItem('viaje'));
     this.loadMap();
+  }
+  async guardarPost(){
+    var f = this.formularioViaje.value;
+
+    if(this.formularioViaje.invalid){
+      const alert = await this.alertController.create({
+        header: 'Datos incompletos',
+        message: 'Tienes que llenar todos los datos',
+        buttons: ['Aceptar']
+        
+      });
+  
+      await alert.present();
+      return;
+    }
+/*     if (this.post.costo > 2000){
+      this.presentToast('Tu tarifa de viaje no debe ser mayor a 2000 pesos');
+      return;
+    } */
+
+
+    var viaje = {
+      voy: f.voy,
+      precio: f.precio,
+
+    }
+
+    localStorage.setItem('viaje',JSON.stringify(viaje));
+    localStorage.setItem('direcciones','true');
+
   }
 
   loadMap() {

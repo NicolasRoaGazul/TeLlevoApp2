@@ -7,43 +7,25 @@ import { ServicioService } from 'src/app/services/servicio.service';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  name: any;
-  usuario: string;
-  user:any;
-  users:any;
-  posts:any;
-  post:any={
-    id:null,
-    title:"",
-    body:"",
-    userId:null,
-  };
+  viaje: string;
+
+
   constructor(private api: ServicioService,private activeRoute: ActivatedRoute,private router:Router) { 
 
   }
   ionViewWillEnter(){
-    this.getUsuarios();
-    this.getPosts();
+
     
   }
-  getPosts() {
-    this.api.getPosts().subscribe((data) =>{
-      this.posts=data;
-      this.posts.reverse();
-    });
-  }
-  getUsuarios() {
-    this.api.getUsuarios().subscribe((data)=>{
-      this.users=data;
-    })
-  }
+
   segmentChanged(event){
     console.log(event);
     let direccion=event.detail.value
     this.router.navigate(['perfil/'+direccion])
   }
   ngOnInit() {
-    this.usuario=JSON.parse(localStorage.getItem('usuario'));
+    this.viaje=JSON.parse(localStorage.getItem('viaje'));
+    
   }
 
 }

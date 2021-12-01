@@ -14,15 +14,10 @@
                 <ion-title>Viajes disponibles</ion-title>
             </ion-list-header>
             <ion-list>
-                <ion-item *ngFor="let post of posts">
-                    <ion-label (click)="setPost(post)">
-                        <h4>{{post.title}}</h4>
-                        <p>{{post.body}}</p>
-
+                <ion-item>
+                    <ion-label>
+                        Está en: Sede Duoc UC<br> Va a: {{viaje.voy}} <br>Precio del viaje: ${{viaje.precio}}
                     </ion-label>
-                    <ion-button (click)="eliminarPost(post)">
-                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                    </ion-button>
                 </ion-item>
             </ion-list>
         </ion-card>

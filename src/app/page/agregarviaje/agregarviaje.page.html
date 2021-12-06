@@ -14,13 +14,29 @@
         </ion-card-header>
         <ion-card-content>
             <form [formGroup]="formularioViaje">
+                <ion-grid>
+
+
+                    <div style="position: relative">
+                        <ion-searchbar debounce=500 (ionChange)="search($event)" [value]="selectedAddress"></ion-searchbar>
+                        <div>
+                            <ion-list lines="none" *ngIf="addresses.length > 0">
+                                <ion-item button *ngFor="let address of addresses" (click)="onSelect(address)">
+                                    <ion-icon name="pin"></ion-icon>
+                                    {{address}}
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </div>
+
+                </ion-grid>
                 <ion-item class="ion-padding-horizontal">
                     <ion-label position="floating">¿Donde voy?</ion-label>
                     <ion-input formControlName="voy" autocomplete="off"></ion-input>
                 </ion-item>
                 <ion-item class="ion-padding-horizontal">
                     <ion-label position="floating">Precio</ion-label>
-                    <ion-input formControlName="precio" autocomplete="off"></ion-input>
+                    <ion-input formControlName="precio" autocomplete="off" type="number"></ion-input>
                 </ion-item>
             </form>
 
